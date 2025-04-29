@@ -4,9 +4,11 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/ui-pro',
+    '@nuxtjs/robots',
     '@nuxt/content',
     'nuxt-og-image',
-    'nuxt-llms'
+    'nuxt-llms',
+    '@nuxtjs/sitemap'
   ],
 
   devtools: {
@@ -57,12 +59,12 @@ export default defineNuxtConfig({
   },
 
   llms: {
-    domain: 'https://docs-template.nuxt.dev/',
-    title: 'Nuxt UI Pro - Docs template',
-    description: 'A template for building documentation with Nuxt UI Pro and Nuxt Content',
+    domain: 'https://laravel-access-control.lomkit.com/',
+    title: 'Laravel Access Control - Lomkit',
+    description: 'Laravel Access Control centralizes your application security in one place',
     full: {
-      title: 'Nuxt UI Pro - Docs template Full Documentation',
-      description: 'This is the full documentation for the Nuxt UI Pro - Docs template'
+      title: 'Laravel Access Control - Full Documentation',
+      description: 'Complete documentation for Laravel Access Control by Lomkit'
     },
     sections: [
       {

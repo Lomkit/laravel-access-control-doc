@@ -40,7 +40,7 @@ export default defineAppConfig({
       'icon': 'i-simple-icons-github',
       'to': 'https://github.com/Lomkit/laravel-rest-api',
       'target': '_blank',
-      'aria-label': 'Laravel Rest Api on Github'
+      'aria-label': 'Laravel Access Control on Github'
     }]
   },
   toc: {

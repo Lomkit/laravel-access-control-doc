@@ -214,7 +214,6 @@ reverse: true
 ---
 :::prose-pre
 ---
-code: php artisan make:perimeter GlobalPerimeter
 filename: ModelController.php
 ---
 ```php

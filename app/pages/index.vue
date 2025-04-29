@@ -10,8 +10,8 @@ useSeoMeta({
   ogTitle: page.value.seo.title,
   description: page.value.seo.description,
   ogDescription: page.value.seo.description,
-  ogImage: 'https://docs-template.nuxt.dev/social-card.png',
-  twitterImage: 'https://docs-template.nuxt.dev/social-card.png'
+  ogImage: 'https://laravel-access-control.lomkit.com/social-card.png',
+  twitterImage: 'https://laravel-access-control.lomkit.com/social-card.png'
 })
 </script>
 
