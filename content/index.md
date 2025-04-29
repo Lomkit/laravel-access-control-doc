@@ -21,7 +21,7 @@ orientation: horizontal
   :::
 
 #title
-Secure your app the easy way !
+Secure your app the easy way!
 
 #description
 Laravel Access Control regroups all security needs in order to make them work together. Avoid wasting time and missing some application's parts.
@@ -62,7 +62,7 @@ All-in-one security configuration
   Laravel
   
   #description
-  Fully integrates with Laravel to make it even more easy to use.
+  Fully integrates with Laravel to make it even easier to use.
   :::
 
   :::u-page-feature
@@ -160,7 +160,7 @@ ui:
 title: Configure your Control
 description: |
   Specify if the perimeter should apply for the specified user and the concerned security check if so.
-  For each perimeters in our PerimeterControl file, we want to configure if the perimeter should apply for the specified users
+  For each perimeter in our PerimeterControl file, we want to configure if the perimeter should apply for the specified users
   and the security itself on queries / policies.
 orientation: horizontal
 variant: naked
