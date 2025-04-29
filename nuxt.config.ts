@@ -5,10 +5,10 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/ui-pro',
     '@nuxtjs/robots',
+    '@nuxtjs/sitemap',
     '@nuxt/content',
     'nuxt-og-image',
-    'nuxt-llms',
-    '@nuxtjs/sitemap'
+    'nuxt-llms'
   ],
 
   devtools: {
