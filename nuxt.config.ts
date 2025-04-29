@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     '@nuxt/content',
     'nuxt-og-image',
-    'nuxt-llms'
+    'nuxt-llms',
+    'nuxt-gtag'
   ],
 
   devtools: {
