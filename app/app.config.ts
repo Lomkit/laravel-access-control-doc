@@ -38,7 +38,7 @@ export default defineAppConfig({
     colorMode: false,
     links: [{
       'icon': 'i-simple-icons-github',
-      'to': 'https://github.com/Lomkit/laravel-rest-api',
+      'to': 'https://github.com/Lomkit/laravel-access-control',
       'target': '_blank',
       'aria-label': 'Laravel Access Control on Github'
     }]
