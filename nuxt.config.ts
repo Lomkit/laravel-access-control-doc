@@ -45,6 +45,12 @@ export default defineNuxtConfig({
       crawlLinks: true
     }
   },
+  // This avoids github pages 404 because it generates trailing slash
+  router: {
+    options: {
+      trailingSlash: true
+    }
+  },
 
   eslint: {
     config: {
