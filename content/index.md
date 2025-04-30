@@ -91,7 +91,7 @@ All-in-one security configuration
 :::u-page-section
 ---
 ui:
-  container: sm:py-6 lg:py-6 py-6
+  container: sm:py-7 lg:py-7 py-7
 title: First setup
 id: first-setup
 ---
@@ -100,7 +100,7 @@ id: first-setup
 :::u-page-section
 ---
 ui:
-  container: sm:py-6 lg:py-6 py-6
+  container: sm:py-7 lg:py-7 py-7
 title: Create your Perimeters
 description: |
   Perimeters defines the functional scopes of your application. They help you structure accesses.
@@ -128,7 +128,7 @@ php artisan make:perimeter OwnPerimeter
 :::u-page-section
 ---
 ui:
-  container: sm:py-6 lg:py-6 py-6
+  container: sm:py-7 lg:py-7 py-7
 title: Create your Control
 description: |
   Control handles the security around the given model using the concerned perimeters.
@@ -156,7 +156,7 @@ filename: Terminal
 :::u-page-section
 ---
 ui:
-  container: sm:py-6 lg:py-6 py-6
+  container: sm:py-7 lg:py-7 py-7
 title: Configure your Control
 description: |
   Specify if the perimeter should apply for the specified user and the concerned security check if so.
@@ -205,7 +205,7 @@ filename: PostControl.php
 :::u-page-section
 ---
 ui:
-  container: sm:py-6 lg:py-6 py-6
+  container: sm:py-7 lg:py-7 py-7
 title: You are ready to go !
 description: Enjoy the full power of access control.
 orientation: horizontal
@@ -229,7 +229,7 @@ $user->can('view', App\Models\Post::first())
 :::u-page-section
 ---
 ui:
-  container: sm:py-6 lg:py-6 py-6
+  container: sm:py-7 lg:py-7 py-7
 ---
 #links
   :::u-button

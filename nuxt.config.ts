@@ -42,7 +42,9 @@ export default defineNuxtConfig({
       routes: [
         '/'
       ],
-      crawlLinks: true
+      crawlLinks: true,
+      // Avoid Github pages trailing slash bug
+      autoSubfolderIndex: false
     }
   },
 
