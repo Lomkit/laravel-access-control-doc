@@ -57,6 +57,8 @@ jobs:
           NUXT_PUBLIC_SITE_URL: ${{ secrets.NUXT_PUBLIC_SITE_URL }}
           NITRO_PRESET: github-pages
         run: ${{ steps.detect-package-manager.outputs.manager }} run generate
+      - name: Add NoJekyll to avoid 404 errors in github pages
+        run: touch .output/public/.nojekyll
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
