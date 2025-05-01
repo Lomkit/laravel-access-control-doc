@@ -100,22 +100,23 @@ id: first-setup
 :::u-page-section
 ---
 ui:
-  container: sm:py-7 lg:py-7 py-7
+  container: sm:py-6 lg:py-7 py-6
 title: Create your Perimeters
-description: |
-  Perimeters defines the functional scopes of your application. They help you structure accesses.
-  Here we will create two simple perimeters for either global access and user related only access
 orientation: horizontal
 variant: naked
 links:
-  - label: Learn more
-    to: /essentials/perimeters
-    target: _blank
-    color: neutral
+- label: Learn more
+  to: /essentials/perimeters
+  trailingIcon: i-heroicons-arrow-right-20-solid
+  target: _blank
+  color: neutral
+  variant: outline
 ---
+#description
+Perimeters defines the functional scopes of your application. They help you structure accesses.
+Here we will create two simple perimeters for either global access and user related only access
 :::prose-pre
 ---
-code: php artisan make:perimeter GlobalPerimeter
 filename: Terminal
 ---
 ```bash
@@ -123,32 +124,21 @@ php artisan make:perimeter GlobalPerimeter
 php artisan make:perimeter OwnPerimeter
 ```
 :::
-:::
 
-:::u-page-section
----
-ui:
-  container: sm:py-7 lg:py-7 py-7
-title: Create your Control
-description: |
-  Control handles the security around the given model using the concerned perimeters.
-  We here want to control our Post model.
-orientation: horizontal
-reverse: true
-variant: naked
-links:
-  - label: Learn more
-    to: /essentials/controls
-    target: _blank
-    color: neutral
----
+#default
 :::prose-pre
----
-code: php artisan make:control PostControl
-filename: Terminal
----
-```bash
-  php artisan make:control PostControl
+```php
+use Lomkit\Access\Perimeters\Perimeter;
+
+class GlobalPerimeter extends Perimeter
+{
+    //
+}
+
+class OwnPerimeter extends Perimeter
+{
+    //
+}
 ```
 :::
 :::
@@ -156,48 +146,121 @@ filename: Terminal
 :::u-page-section
 ---
 ui:
-  container: sm:py-7 lg:py-7 py-7
-title: Configure your Control
-description: |
-  Specify if the perimeter should apply for the specified user and the concerned security check if so.
-  For each perimeter in our PerimeterControl file, we want to configure if the perimeter should apply for the specified users
-  and the security itself on queries / policies.
+  container: sm:py-6 lg:py-7 py-6
+title: Create your Control
 orientation: horizontal
 variant: naked
+reverse: true
+links:
+- label: Learn more
+  to: /essentials/controls
+  trailingIcon: i-heroicons-arrow-right-20-solid
+  target: _blank
+  color: neutral
+  variant: outline
 ---
+#description
+Control handles the security around the given model using the concerned perimeters. We here want to control our Post model.
+:::prose-pre
+---
+filename: Terminal
+---
+```bash
+php artisan make:control PostControl
+```
+:::
+
+#default
 :::prose-pre
 ---
 filename: PostControl.php
 ---
 ```php
-    class PostControl extends Control
-    {
-      protected function perimeters(): array
-      {
-        return [
-          GlobalPerimeter::new()
-            ->allowed(function (Model $user, string $method) {
-              return $user->can(sprintf('%s global models', $method));
-            })
-            ->should(function (Model $user, Model $model) {
-              return true;
-            })
-            ->query(function (Builder $query, Model $user) {
-              return $query;
-            }),
-          OwnPerimeter::new()
-            ->allowed(function (Model $user, string $method) {
-              return $user->can(sprintf('%s own models', $method));
-            })
-            ->should(function (Model $user, Model $model) {
-              return $model->user()->is($user);
-            })
-            ->query(function (Builder $query, Model $user) {
-              return $query->where('user_id', $user->getKey());
-            }),
-        ];
-      }
-    }
+use Lomkit\Access\Controls\Control;
+
+class PostControl extends Control
+{
+  protected function perimeters(): array
+  {
+    return [
+      GlobalPerimeter::new()
+        ->allowed(function (Model $user, string $method) {
+          return $user->can(sprintf('%s global models', $method));
+        })
+        ->should(function (Model $user, Model $model) {
+          return true;
+        })
+        ->query(function (Builder $query, Model $user) {
+          return $query;
+        }),
+      OwnPerimeter::new()
+        ->allowed(function (Model $user, string $method) {
+          return $user->can(sprintf('%s own models', $method));
+        })
+        ->should(function (Model $user, Model $model) {
+          return $model->user()->is($user);
+        })
+        ->query(function (Builder $query, Model $user) {
+          return $query->where('user_id', $user->getKey());
+        }),
+    ];
+  }
+}
+```
+:::
+:::
+
+:::u-page-section
+---
+ui:
+  container: sm:py-6 lg:py-7 py-6
+title: Change your model
+orientation: horizontal
+variant: naked
+---
+#description
+Specify your model is controlled via the `HasControl` trait
+
+#default
+:::prose-pre
+---
+filename: Post.php
+---
+```php
+use Lomkit\Access\Controls\HasControl;
+
+class Post extends Model
+{
+    use HasControl;
+}
+```
+:::
+:::
+
+:::u-page-section
+---
+ui:
+  container: sm:py-6 lg:py-7 py-6
+title: Create your Policy
+orientation: horizontal
+variant: naked
+reverse: true
+---
+#description
+Extend the `ControlledPolicy` class from Access Control and specify the desired model.
+
+#default
+:::prose-pre
+---
+filename: PostPolicy.php
+---
+```php
+use Lomkit\Access\Policies\ControlledPolicy;
+
+class PostPolicy extends ControlledPolicy
+{
+    protected string $model = App\Models\Post::class;
+}
 ```
 :::
 :::
@@ -210,7 +273,6 @@ title: You are ready to go !
 description: Enjoy the full power of access control.
 orientation: horizontal
 variant: naked
-reverse: true
 ---
 :::prose-pre
 ---

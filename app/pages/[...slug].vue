@@ -7,7 +7,7 @@ definePageMeta({
 })
 
 const route = useRoute()
-const { toc, seo } = useAppConfig()
+const { toc, seo, sponsors } = useAppConfig()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const { data: page } = await useAsyncData(route.path, () => queryCollection('docs').path(route.path).first())
@@ -96,6 +96,17 @@ const links = computed(() => {
               :title="toc.bottom.title"
               :links="links"
             />
+
+            <USeparator
+              type="dashed"
+            />
+
+            <UPageLinks
+              :title="sponsors.title"
+              :links="sponsors.links"
+            />
+
+            <SponsorsAd />
           </div>
         </template>
       </UContentToc>

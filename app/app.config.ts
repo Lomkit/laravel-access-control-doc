@@ -55,5 +55,14 @@ export default defineAppConfig({
         target: '_blank'
       }]
     }
+  },
+  sponsors: {
+    title: 'Sponsors',
+    links: [{
+      icon: 'i-mdi-hand-heart-outline',
+      label: 'Become a sponsor',
+      to: 'https://github.com/sponsors/GautierDele',
+      target: '_blank'
+    }]
   }
 })
