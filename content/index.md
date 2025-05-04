@@ -1,6 +1,6 @@
 ---
 seo:
-  title: Laravel Access Control - Lomkit
+  title: "Laravel Access Control: Secure your app the easy way!"
   description: |
     Laravel Access Control centralize your application security.
     One place configuration, whole application secured!
