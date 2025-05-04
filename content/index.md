@@ -30,7 +30,7 @@ Laravel Access Control regroups all security needs in order to make them work to
   :::u-button
   ---
   size: xl
-  to: /getting-started
+  to: /getting-started/installation
   trailing-icon: i-lucide-arrow-right
   ---
   Get started
@@ -298,7 +298,7 @@ ui:
   ---
   color: primary
   size: xl
-  to: /getting-started
+  to: /getting-started/installation
   trailingIcon: i-lucide-arrow-right
   ---
   Get started
