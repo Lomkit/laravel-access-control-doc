@@ -9,8 +9,17 @@ const callouts: Record<string, string> = {
   important: 'Important'
 }
 
-/** Layout components, replaced by their content. */
-const wrappers = new Set(['code-group', 'collapsible', 'steps', 'tabs', 'tabs-item'])
+/**
+ * Layout components, replaced by their content, with the prop that titles
+ * them, if any, written as a bold line before it.
+ */
+const wrappers: Record<string, string | null> = {
+  'code-group': null,
+  'collapsible': 'name',
+  'steps': null,
+  'tabs': null,
+  'tabs-item': 'label'
+}
 
 function callout(label: string, content: MinimarkNode[]): MinimarkNode {
   const lead: MinimarkNode = ['strong', {}, `${label}:`]
@@ -35,8 +44,13 @@ function plainMarkdown(nodes: MinimarkNode[]): MinimarkNode[] {
     const [tag, props, ...children] = node
     const content = plainMarkdown(children)
 
-    if (wrappers.has(tag)) {
-      return content
+    if (tag in wrappers) {
+      const titleProp = wrappers[tag]
+      const title = titleProp ? props[titleProp] : undefined
+
+      return typeof title === 'string' && title
+        ? [['p', {}, ['strong', {}, title.charAt(0).toUpperCase() + title.slice(1)]], ...content]
+        : content
     }
 
     const label = callouts[tag]
@@ -48,22 +62,12 @@ function plainMarkdown(nodes: MinimarkNode[]): MinimarkNode[] {
 /**
  * The pages of llms-full.txt would keep their MDC syntax, such as `::note` or
  * `::code-group`, which means nothing to a Markdown reader: write callouts as
- * quotes and drop the layout components around their content.
- *
- * The Markdown writer also prints the first marker of some bold phrases that
- * end with a period as `&#x2A;`, as in `&#x2A;*Read the clock.**`: give them
- * back their `**`.
+ * quotes and replace the layout components with their title and content.
  */
 export default defineNitroPlugin((nitroApp) => {
   nitroApp.hooks.hook('content:llms:generate:document', (_event, doc: { body?: { value?: MinimarkNode[] } }) => {
     if (doc.body?.value) {
       doc.body.value = plainMarkdown(doc.body.value)
-    }
-  })
-
-  nitroApp.hooks.hook('beforeResponse', (event, response) => {
-    if (event.path === '/llms-full.txt' && typeof response.body === 'string') {
-      response.body = response.body.replaceAll('&#x2A;*', '**')
     }
   })
 })
