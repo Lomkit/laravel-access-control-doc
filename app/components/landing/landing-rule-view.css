@@ -53,6 +53,11 @@
   box-shadow: inset 3px 0 0 var(--ui-primary), inset 6px 0 0 var(--lac-update);
 }
 
+/* The search keys of a level that decides only edits: they serve seeing, not editing. */
+:deep(.lcl-line.is-dim) {
+  opacity: 0.45;
+}
+
 .tag {
   display: inline-block;
   margin-left: 8px;

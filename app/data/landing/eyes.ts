@@ -4,8 +4,9 @@
  * Scout's database engine (scripts/landing/landing-search-output.json).
  * `control` is the PostControl of the package README: its step 1 control, with
  * the searchKeys() lines of its step 4 at the end of the perimeter chains, so
- * the search follows on every engine. `npm run check:landing` checks this file
- * against both; the `say` sentences and the client names are checked by hand.
+ * the search follows on Meilisearch, Typesense and Algolia as on the database
+ * engine. `npm run check:landing` checks this file against both; the `say`
+ * sentences and the client names are checked by hand.
  */
 export type Ability = 'view' | 'update'
 

@@ -19,12 +19,21 @@ function levelAt(index: number) {
   return landing.levels.find(level => index >= level.from && index <= level.to)
 }
 
+/**
+ * The lines of the levels that decide for the reader. Search keys serve the
+ * search, so they belong to seeing only: in a level that decides only edits,
+ * they are dimmed.
+ */
 function lineClass(index: number): Record<string, boolean> {
   const level = levelAt(index)
+  const sees = !!level && props.reader.levels.view === level.name
+  const edits = !!level && props.reader.levels.update === level.name
+  const searchKeys = landing.control[index]!.trim().startsWith('->searchKeys(')
 
   return {
-    'is-see': !!level && props.reader.levels.view === level.name,
-    'is-edit': !!level && props.reader.levels.update === level.name
+    'is-see': sees,
+    'is-edit': edits && !searchKeys,
+    'is-dim': edits && !sees && searchKeys
   }
 }
 

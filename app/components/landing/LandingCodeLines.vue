@@ -126,6 +126,8 @@ const rows = computed(() => props.lines.map((line) => {
 }
 
 .lcl-punct { color: var(--lcl-punct); }
+/* An arrow or a double colon never breaks across two lines. */
+.lcl-op { color: var(--lcl-punct); white-space: nowrap; }
 .lcl-keyword { color: var(--lcl-keyword); }
 .lcl-type { color: var(--lcl-type); }
 .lcl-string { color: var(--lcl-string); }

@@ -13,6 +13,7 @@ const phpRules: [RegExp, string][] = [
   [/\b(?:array|string|int|bool|void)\b/y, 'type'],
   [/[A-Za-z_]\w*(?=\s*\()/y, 'function'],
   [/\b[A-Z]\w*/y, 'class'],
+  [/->|::/y, 'op'],
   [/[A-Za-z_]\w*|\s+/y, 'plain'],
   [/[^\sA-Za-z0-9_]/y, 'punct']
 ]
