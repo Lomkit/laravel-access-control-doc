@@ -26,7 +26,7 @@ const description = page.value.seo?.description || page.value.description
 
 useSeoMeta({
   title,
-  ogTitle: title,
+  ogTitle: `${title} - ${packageInfo.name}`,
   description,
   ogDescription: description
 })
