@@ -39,8 +39,8 @@
 }
 
 :deep(.lcl-line.is-see) {
-  background: color-mix(in oklab, var(--ui-primary) 11%, transparent);
-  box-shadow: inset 3px 0 0 var(--ui-primary);
+  background: color-mix(in oklab, var(--brand-primary) 11%, transparent);
+  box-shadow: inset 3px 0 0 var(--brand-primary);
 }
 
 :deep(.lcl-line.is-edit) {
@@ -49,8 +49,8 @@
 }
 
 :deep(.lcl-line.is-see.is-edit) {
-  background: color-mix(in oklab, var(--ui-primary) 9%, color-mix(in oklab, var(--lac-update) 7%, transparent));
-  box-shadow: inset 3px 0 0 var(--ui-primary), inset 6px 0 0 var(--lac-update);
+  background: color-mix(in oklab, var(--brand-primary) 9%, color-mix(in oklab, var(--lac-update) 7%, transparent));
+  box-shadow: inset 3px 0 0 var(--brand-primary), inset 6px 0 0 var(--lac-update);
 }
 
 /* The search keys of a level that decides only edits: they serve seeing, not editing. */
@@ -75,7 +75,7 @@
 
 .tag-see {
   background: var(--ui-primary);
-  color: #1a0a02;
+  color: var(--ui-text-inverted);
 }
 
 .tag-edit {
