@@ -5,7 +5,9 @@ import { parse } from 'yaml'
 import { packageInfo } from './shared/utils/package-info'
 import { docsFirstPage, docsFolder, docsRedirects } from './shared/utils/docs'
 
-const siteUrl = (process.env.NUXT_PUBLIC_SITE_URL || 'https://laravel-access-control.lomkit.com').replace(/\/$/, '')
+const configuredSiteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://laravel-access-control.lomkit.com'
+const siteUrl = (/^https?:\/\//.test(configuredSiteUrl) ? configuredSiteUrl : `https://${configuredSiteUrl}`).replace(/\/$/, '')
+process.env.NUXT_PUBLIC_SITE_URL = siteUrl
 
 /** Removes the ordering prefix of a content file or folder name: `1.getting-started` → `getting-started`. */
 function slug(part: string): string {
