@@ -123,7 +123,7 @@ const emit = defineEmits<{
   padding: 1px 7px;
   border-radius: 9999px;
   background: var(--ui-primary);
-  color: #1a0a02;
+  color: var(--ui-text-inverted);
   font-size: 10.5px;
   font-weight: 700;
 }
