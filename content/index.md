@@ -1,9 +1,9 @@
 ---
+title: Laravel Access Control
+description: "Declare once who can see and change which rows: a Laravel package whose controls drive your policies, your Eloquent queries and your Scout searches."
 seo:
-  title: "Laravel Access Control: Secure your app the easy way!"
-  description: |
-    Laravel Access Control centralize your application security.
-    One place configuration, whole application secured!
+  title: "Laravel Access Control: declare once who can see and change which rows"
+  description: "Laravel Access Control is a Laravel package that declares in one control who can see and change each Eloquent model: its perimeters drive the policies, the query scopes and the Scout searches."
 ---
 
 :::u-page-hero
@@ -20,11 +20,19 @@ orientation: horizontal
   ```
   :::
 
+#headline
+  :::u-badge
+  ---
+  label: Laravel Access Control 1.0
+  variant: subtle
+  ---
+  :::
+
 #title
-Secure your app the easy way!
+Declare once who can see and change which rows.
 
 #description
-Laravel Access Control regroups all security needs in order to make them work together. Avoid wasting time and missing some application's parts.
+Policies, queries and searches follow. Write one control for an Eloquent model: which users reach which rows, for each ability. Laravel Access Control turns it into the policy behind `$user->can()`, the `controlled()` scope that filters your queries in SQL, the filter of your Laravel Scout searches and the row restriction of your laravel-rest-api resources. They all read the same control, so each access rule lives in one place.
 
 #links
   :::u-button
@@ -42,264 +50,67 @@ Laravel Access Control regroups all security needs in order to make them work to
   icon: i-simple-icons-github
   size: xl
   target: _blank
-  to: https://github.com/lomkit/laravel-access-control
+  to: https://github.com/Lomkit/laravel-access-control
   variant: subtle
   ---
-  Star on github
+  GitHub
   :::
 :::
 
 :::u-page-section
-#title
-All-in-one security configuration
-
 #features
   :::u-page-feature
   ---
-  icon: i-simple-icons-laravel
+  icon: i-lucide-shield-check
   ---
   #title
-  Laravel
-  
+  One control per model
+
   #description
-  Fully integrates with Laravel to make it even easier to use.
+  Its perimeters say which users reach which rows, for each ability, as SQL constraints and as in-memory checks.
   :::
 
   :::u-page-feature
   ---
-  icon: icon-park-outline:easy
+  icon: i-lucide-git-fork
   ---
   #title
-  Easy to configure
-  
+  One declaration, everywhere
+
   #description
-  One place configuration to impact your whole application.
+  Automatic policies, `controlled()` queries, controlled Scout searches and the laravel-rest-api extension.
   :::
 
   :::u-page-feature
   ---
-  icon: si:checklist-line
+  icon: i-lucide-layers
   ---
   #title
-  Clean code
-  
+  Levels, boundaries and parents
+
   #description
-  Keep your application clean as it grows
+  `Levels::of()` applies the highest level a user reaches, a boundary keeps every row inside the user's workspace or tenant, and `ThroughParent` gives a comment the access of its post.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-lock
+  ---
+  #title
+  Fails closed
+
+  #description
+  No signed-in user, no perimeter or no boundary value means no row, and a missing declaration throws instead of opening rows.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-list-checks
+  ---
+  #title
+  Checked before production
+
+  #description
+  `php artisan access:check` reports what would throw, open or hide rows, and test assertions prove that the policy, the queries and the search agree on your test data.
   :::
 :::
-
-:::u-page-section
----
-ui:
-  container: sm:py-7 lg:py-7 py-7
-title: First setup
-id: first-setup
----
-:::
-
-:::u-page-section
----
-ui:
-  container: sm:py-6 lg:py-7 py-6
-title: Create your Perimeters
-orientation: horizontal
-variant: naked
-links:
-- label: Learn more
-  to: /essentials/perimeters
-  trailingIcon: i-heroicons-arrow-right-20-solid
-  target: _blank
-  color: neutral
-  variant: outline
----
-#description
-Perimeters defines the functional scopes of your application. They help you structure accesses.
-Here we will create two simple perimeters for either global access and user related only access
-:::prose-pre
----
-filename: Terminal
----
-```bash
-php artisan make:perimeter GlobalPerimeter
-php artisan make:perimeter OwnPerimeter
-```
-:::
-
-#default
-:::prose-pre
-```php
-use Lomkit\Access\Perimeters\Perimeter;
-
-class GlobalPerimeter extends Perimeter
-{
-    //
-}
-
-class OwnPerimeter extends Perimeter
-{
-    //
-}
-```
-:::
-:::
-
-:::u-page-section
----
-ui:
-  container: sm:py-6 lg:py-7 py-6
-title: Create your Control
-orientation: horizontal
-variant: naked
-reverse: true
-links:
-- label: Learn more
-  to: /essentials/controls
-  trailingIcon: i-heroicons-arrow-right-20-solid
-  target: _blank
-  color: neutral
-  variant: outline
----
-#description
-Control handles the security around the given model using the concerned perimeters. We here want to control our Post model.
-:::prose-pre
----
-filename: Terminal
----
-```bash
-php artisan make:control PostControl
-```
-:::
-
-#default
-:::prose-pre
----
-filename: PostControl.php
----
-```php
-use Lomkit\Access\Controls\Control;
-
-class PostControl extends Control
-{
-  protected function perimeters(): array
-  {
-    return [
-      GlobalPerimeter::new()
-        ->allowed(function (Model $user, string $method) {
-          return $user->can(sprintf('%s global models', $method));
-        })
-        ->should(function (Model $user, Model $model) {
-          return true;
-        })
-        ->query(function (Builder $query, Model $user) {
-          return $query;
-        }),
-      OwnPerimeter::new()
-        ->allowed(function (Model $user, string $method) {
-          return $user->can(sprintf('%s own models', $method));
-        })
-        ->should(function (Model $user, Model $model) {
-          return $model->user()->is($user);
-        })
-        ->query(function (Builder $query, Model $user) {
-          return $query->where('user_id', $user->getKey());
-        }),
-    ];
-  }
-}
-```
-:::
-:::
-
-:::u-page-section
----
-ui:
-  container: sm:py-6 lg:py-7 py-6
-title: Change your model
-orientation: horizontal
-variant: naked
----
-#description
-Specify your model is controlled via the `HasControl` trait
-
-#default
-:::prose-pre
----
-filename: Post.php
----
-```php
-use Lomkit\Access\Controls\HasControl;
-
-class Post extends Model
-{
-    use HasControl;
-}
-```
-:::
-:::
-
-:::u-page-section
----
-ui:
-  container: sm:py-6 lg:py-7 py-6
-title: Create your Policy
-orientation: horizontal
-variant: naked
-reverse: true
----
-#description
-Extend the `ControlledPolicy` class from Access Control and specify the desired model.
-
-#default
-:::prose-pre
----
-filename: PostPolicy.php
----
-```php
-use Lomkit\Access\Policies\ControlledPolicy;
-
-class PostPolicy extends ControlledPolicy
-{
-    protected string $model = App\Models\Post::class;
-}
-```
-:::
-:::
-
-:::u-page-section
----
-ui:
-  container: sm:py-7 lg:py-7 py-7
-title: You are ready to go !
-description: Enjoy the full power of access control.
-orientation: horizontal
-variant: naked
----
-:::prose-pre
----
-filename: ModelController.php
----
-```php
-// Apply the Control to the query
-App\Models\Post::controlled()->get()
-
-// Check if the user can view the post according to the policy
-$user->can('view', App\Models\Post::first())
-```
-:::
-:::
-
-:::u-page-section
----
-ui:
-  container: sm:py-7 lg:py-7 py-7
----
-#links
-  :::u-button
-  ---
-  color: primary
-  size: xl
-  to: /getting-started/installation
-  trailingIcon: i-lucide-arrow-right
-  ---
-  Get started
-  :::

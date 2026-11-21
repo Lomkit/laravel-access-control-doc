@@ -1,0 +1,21 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "url": "https://context7.com/lomkit/laravel-access-control-doc",
+  "public_key": "pk_I3j3p8IZd3KHQP7UoVzdW",
+  "projectTitle": "Laravel Access Control",
+  "description": "Laravel package (lomkit/laravel-access-control) that declares in one control who can see and change each Eloquent model: its perimeters drive the policies, the query scopes and the Scout searches.",
+  "folders": ["content/1.x"],
+  "excludeFolders": ["app", "server", "shared", "public", ".github"],
+  "excludeFiles": ["README.md"],
+  "rules": [
+    "These docs cover Laravel Access Control 1.x (lomkit/laravel-access-control), which requires PHP 8.3+ and Laravel 13. Laravel 12 applications stay on 0.7, the last 0.x release. Do not write 0.x code.",
+    "Install with composer require lomkit/laravel-access-control. There is no configuration file to publish: everything is declared in the controls.",
+    "Write one control per model in app/Access/Controls (php artisan make:control PostControl) with protected string $model and perimeters(); perimeter classes go in app/Access/Perimeters (php artisan make:perimeter ClientPerimeter).",
+    "Each perimeter declares allowed() (the permission, for an Ability), query() (its rows in SQL) and should() (one row in memory), or unrestricted(). query() and should() must describe the same rows.",
+    "Group perimeters with Levels::of(), widest first: only the highest level the user reaches applies. Keep tenants apart with a boundary() on the control.",
+    "Add the HasControl trait to the model and call Access::registerPolicies() in the boot() method of a service provider.",
+    "A query is controlled only when it says so: Post::query()->controlled()->paginate(), controlled('update') for another ability, Post::controlledFor($user) in jobs and commands. A controlled query without a signed-in user returns no row.",
+    "With Laravel Scout, use the ControlledSearchable trait, give each restricting perimeter searchKeys(), and end every search with controlled() or uncontrolled().",
+    "Run php artisan access:check in CI, and prove in tests with InteractsWithAccess (assertControlAgrees, assertLevelsNest, assertSearchAgrees) that the policy, the queries and the search agree."
+  ]
+}
