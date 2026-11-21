@@ -17,7 +17,6 @@ const hits = computed(() => landing.searchUncontrolled.map(id => ({
   <div class="px-2.5 pt-2 sm:px-3.5 sm:pt-3">
     <div
       class="flex h-[34px] items-center gap-2 rounded-[10px] border border-accented bg-muted px-3 text-[13.5px] text-highlighted sm:h-[38px] sm:text-sm"
-      role="search"
     >
       <UIcon
         name="i-lucide-search"
@@ -26,7 +25,6 @@ const hits = computed(() => landing.searchUncontrolled.map(id => ({
       <span><span class="sr-only">Search: </span>{{ landing.query }}</span>
       <span
         class="ml-auto text-[12.5px] font-semibold whitespace-nowrap text-muted"
-        aria-live="polite"
       ><b class="text-(--lac-primary-text)">{{ reader.searchTotal }}</b> {{ reader.searchTotal === 1 ? 'result' : 'results' }}</span>
     </div>
     <ul

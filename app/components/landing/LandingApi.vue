@@ -34,7 +34,7 @@ const routeLine = [apiRoute]
           <span class="flex items-center gap-2 text-[13.5px] font-semibold text-highlighted">
             <span
               class="avatar"
-              :class="`tone-${reader.tone}`"
+              :style="{ '--tone': `var(--lac-tone-${reader.tone})` }"
               aria-hidden="true"
             >
               <template v-if="reader.initials">{{ reader.initials }}</template>
@@ -74,13 +74,4 @@ const routeLine = [apiRoute]
   font-size: 9.5px;
   font-weight: 700;
 }
-
-.tone-violet { --tone: #7c3aed; }
-.tone-sky { --tone: #0284c7; }
-.tone-emerald { --tone: #059669; }
-.tone-slate { --tone: #64748b; }
-.dark .tone-violet { --tone: #a78bfa; }
-.dark .tone-sky { --tone: #38bdf8; }
-.dark .tone-emerald { --tone: #34d399; }
-.dark .tone-slate { --tone: #94a3b8; }
 </style>

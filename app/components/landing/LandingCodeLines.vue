@@ -119,6 +119,12 @@ const rows = computed(() => props.lines.map((line) => {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .lcl-line {
+    transition: none;
+  }
+}
+
 .lcl-punct { color: var(--lcl-punct); }
 .lcl-keyword { color: var(--lcl-keyword); }
 .lcl-type { color: var(--lcl-type); }

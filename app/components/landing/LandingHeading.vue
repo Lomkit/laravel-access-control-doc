@@ -27,9 +27,7 @@ withDefaults(defineProps<{
       v-if="text"
       class="mt-4 text-base text-pretty text-muted sm:text-[17px]"
     >
-      <slot name="text">
-        {{ text }}
-      </slot>
+      {{ text }}
     </p>
   </div>
 </template>

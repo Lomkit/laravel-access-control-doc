@@ -11,7 +11,7 @@ const emit = defineEmits<{
   flip: []
 }>()
 
-const button = useTemplateRef<HTMLButtonElement>('button')
+const button = useTemplateRef<{ focus: () => void }>('button')
 
 const signedOut = computed(() => props.reader.levels.view === null && props.reader.levels.update === null)
 
@@ -42,7 +42,7 @@ function tags(index: number): { kind: 'see' | 'edit', text: string }[] {
   ]
 }
 
-defineExpose({ focus: () => button.value?.focus({ preventScroll: true }) })
+defineExpose({ focus: () => button.value?.focus() })
 </script>
 
 <template>
@@ -57,11 +57,9 @@ defineExpose({ focus: () => button.value?.focus({ preventScroll: true }) })
       </span>
     </template>
     <template #actions>
-      <button
+      <LandingBarButton
         ref="button"
-        type="button"
-        class="lac-bar-btn"
-        :tabindex="active ? 0 : -1"
+        :active="active"
         @click="emit('flip')"
       >
         <UIcon
@@ -69,7 +67,7 @@ defineExpose({ focus: () => button.value?.focus({ preventScroll: true }) })
           class="size-3.5"
         />
         Back to the app
-      </button>
+      </LandingBarButton>
     </template>
 
     <div class="flex border-b border-default bg-muted/60 px-2">

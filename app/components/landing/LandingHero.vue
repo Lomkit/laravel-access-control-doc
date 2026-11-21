@@ -6,8 +6,8 @@
     />
 
     <UContainer class="pt-3.5 pb-12 sm:pt-7 sm:pb-14 lg:pt-14 lg:pb-20">
-      <div class="grid grid-cols-1 gap-3 sm:gap-[18px] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center lg:gap-14">
-        <div class="min-w-0">
+      <div class="grid grid-cols-1 gap-3 sm:gap-[18px] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-start lg:gap-14">
+        <div class="min-w-0 lg:pt-48">
           <h1 class="lac-title text-highlighted">
             Same posts, <span class="lac-gradient-text">different eyes.</span>
           </h1>

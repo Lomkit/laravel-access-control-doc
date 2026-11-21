@@ -23,7 +23,8 @@ const emit = defineEmits<{
       :key="reader.key"
       type="button"
       class="face"
-      :class="[`tone-${reader.tone}`, { 'is-on': reader.key === current, 'is-invite': reader.key === invite }]"
+      :style="{ '--tone': `var(--lac-tone-${reader.tone})` }"
+      :class="{ 'is-on': reader.key === current, 'is-invite': reader.key === invite }"
       :aria-pressed="reader.key === current ? 'true' : 'false'"
       @click="emit('pick', reader.key)"
     >
@@ -50,15 +51,6 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
-.tone-violet { --tone: #7c3aed; }
-.tone-sky { --tone: #0284c7; }
-.tone-emerald { --tone: #059669; }
-.tone-slate { --tone: #64748b; }
-.dark .tone-violet { --tone: #a78bfa; }
-.dark .tone-sky { --tone: #38bdf8; }
-.dark .tone-emerald { --tone: #34d399; }
-.dark .tone-slate { --tone: #94a3b8; }
-
 .face {
   position: relative;
   display: flex;
@@ -139,6 +131,18 @@ const emit = defineEmits<{
 @media (prefers-reduced-motion: no-preference) {
   .face.is-invite .face-photo::after {
     animation: invite 1.6s ease-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face-photo,
+  .face:hover .face-photo {
+    transition: none;
+    transform: none;
+  }
+
+  .face.is-on .face-photo {
+    transform: none;
   }
 }
 

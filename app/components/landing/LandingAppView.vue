@@ -11,7 +11,7 @@ const emit = defineEmits<{
   flip: []
 }>()
 
-const button = useTemplateRef<HTMLButtonElement>('button')
+const button = useTemplateRef<{ focus: () => void }>('button')
 
 function state(post: LandingPost): 'edit' | 'read' | 'hidden' {
   if (!props.reader.listed.includes(post.id)) {
@@ -21,7 +21,7 @@ function state(post: LandingPost): 'edit' | 'read' | 'hidden' {
   return props.reader.editable.includes(post.id) ? 'edit' : 'read'
 }
 
-defineExpose({ focus: () => button.value?.focus({ preventScroll: true }) })
+defineExpose({ focus: () => button.value?.focus() })
 </script>
 
 <template>
@@ -30,11 +30,9 @@ defineExpose({ focus: () => button.value?.focus({ preventScroll: true }) })
       <span class="min-w-0 truncate font-mono text-xs text-muted">acme.test<b class="font-medium text-highlighted">/posts</b></span>
     </template>
     <template #actions>
-      <button
+      <LandingBarButton
         ref="button"
-        type="button"
-        class="lac-bar-btn"
-        :tabindex="active ? 0 : -1"
+        :active="active"
         @click="emit('flip')"
       >
         Where is the rule?
@@ -42,7 +40,7 @@ defineExpose({ focus: () => button.value?.focus({ preventScroll: true }) })
           name="i-lucide-arrow-right"
           class="size-3.5"
         />
-      </button>
+      </LandingBarButton>
     </template>
 
     <LandingSearch :reader="reader" />

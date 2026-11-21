@@ -1,7 +1,6 @@
 <script setup lang="ts">
 defineProps<{
   title?: string
-  icon?: string
   note?: string
 }>()
 </script>
@@ -22,11 +21,6 @@ defineProps<{
           v-if="title"
           class="flex min-w-0 items-center gap-1.5 truncate font-mono text-xs text-muted"
         >
-          <UIcon
-            v-if="icon"
-            :name="icon"
-            class="size-3.5 shrink-0"
-          />
           <span class="truncate">{{ title }}</span>
         </div>
       </slot>
