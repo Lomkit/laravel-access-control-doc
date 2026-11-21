@@ -7,6 +7,7 @@ export const packageInfo = {
   name: 'Laravel Access Control',
   composerName: 'lomkit/laravel-access-control',
   release: '1.0.0',
+  // Also the folder of the pages under content/.
   docsVersion: '1.x',
   php: '8.3',
   laravel: '13',

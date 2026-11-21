@@ -1,9 +1,11 @@
+import { packageInfo } from './package-info'
+
 /**
  * The documentation pages live in `content/<docsFolder>` and are served at the
  * root. A second major version would follow laravel-rest-api-doc: a list of
  * versions, one collection each, and a switcher.
  */
-export const docsFolder = '1.x'
+export const docsFolder = packageInfo.docsVersion
 
 /** First page of the docs, the target of "Get started". */
 export const docsFirstPage = '/getting-started/installation'
@@ -27,8 +29,22 @@ export const legacyPages: Record<string, string> = {
 
 /**
  * Redirects of every old URL whose page no longer exists, among `paths`, the
- * page paths of the docs.
+ * page paths of the docs. Throws when an old URL points to a page that does
+ * not exist, so that a renamed page cannot leave a redirect to nowhere or to
+ * itself.
  */
 export function docsRedirects(paths: string[]): Record<string, string> {
-  return Object.fromEntries(Object.entries(legacyPages).filter(([from]) => !paths.includes(from)))
+  const redirects: Record<string, string> = {}
+
+  for (const [from, to] of Object.entries(legacyPages)) {
+    if (!paths.includes(to)) {
+      throw new Error(`legacyPages in shared/utils/docs.ts sends ${from} to ${to}, which is not a page of content/${docsFolder}.`)
+    }
+
+    if (from !== to && !paths.includes(from)) {
+      redirects[from] = to
+    }
+  }
+
+  return redirects
 }

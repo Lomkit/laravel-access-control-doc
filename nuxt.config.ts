@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process'
-import { readdirSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { parse } from 'yaml'
 import { packageInfo } from './shared/utils/package-info'
 import { docsFirstPage, docsFolder, docsRedirects } from './shared/utils/docs'
 
@@ -21,16 +22,27 @@ function docsPaths(): string[] {
     .map(path => `/${path}`)
 }
 
-/** Sections of the docs, in navigation order: their folder and the title of their `.navigation.yml`. */
+/**
+ * Title of a section: the `title` of its `.navigation.yml`, or the name that
+ * Nuxt Content gives a folder without one (`getting-started` → `Getting Started`).
+ */
+function sectionTitle(folder: string): string {
+  const file = `content/${docsFolder}/${folder}/.navigation.yml`
+  const title = existsSync(file) ? (parse(readFileSync(file, 'utf8')) as { title?: unknown } | null)?.title : undefined
+
+  if (typeof title === 'string' && title.trim()) {
+    return title.trim()
+  }
+
+  return slug(folder).split(/[\s-]/).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+}
+
+/** Sections of the docs, in navigation order: their title and their path prefix. */
 function docsSections(): { title: string, folder: string }[] {
   return readdirSync(`content/${docsFolder}`, { withFileTypes: true })
     .filter(entry => entry.isDirectory())
     .sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }))
-    .map((entry) => {
-      const navigation = readFileSync(`content/${docsFolder}/${entry.name}/.navigation.yml`, 'utf8')
-
-      return { title: navigation.match(/^title:\s*(.+)$/m)?.[1]?.trim() ?? slug(entry.name), folder: slug(entry.name) }
-    })
+    .map(entry => ({ title: sectionTitle(entry.name), folder: slug(entry.name) }))
 }
 
 /**
