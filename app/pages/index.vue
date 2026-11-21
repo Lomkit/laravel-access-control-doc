@@ -22,9 +22,13 @@ useSeoMeta({
 </script>
 
 <template>
-  <ContentRenderer
-    v-if="page"
-    :value="page"
-    :prose="false"
-  />
+  <div v-if="page">
+    <LandingHero />
+
+    <LandingBeforeAfter />
+
+    <LandingApi />
+
+    <LandingCta />
+  </div>
 </template>
