@@ -4,21 +4,31 @@ if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
 
+const site = useSiteConfig()
+const socialCard = `${site.url.replace(/\/$/, '')}/social-card.png`
+
+const title = page.value.seo?.title || page.value.title
+const description = page.value.seo?.description || page.value.description
+
 useSeoMeta({
-  title: page.value.seo.title,
-  titleTemplate: null,
-  ogTitle: page.value.seo.title,
-  description: page.value.seo.description,
-  ogDescription: page.value.seo.description,
-  ogImage: 'https://laravel-access-control.lomkit.com/social-card.png',
-  twitterImage: 'https://laravel-access-control.lomkit.com/social-card.png'
+  titleTemplate: '',
+  title,
+  ogTitle: title,
+  description,
+  ogDescription: description,
+  ogImage: socialCard,
+  twitterImage: socialCard
 })
 </script>
 
 <template>
-  <ContentRenderer
-    v-if="page"
-    :value="page"
-    :prose="false"
-  />
+  <div v-if="page">
+    <LandingHero />
+
+    <LandingBeforeAfter />
+
+    <LandingApi />
+
+    <LandingCta />
+  </div>
 </template>

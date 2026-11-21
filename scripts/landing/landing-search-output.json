@@ -1,0 +1,158 @@
+{
+    "package": "lomkit/laravel-access-control 3cc0390 (v1.0.0)",
+    "scout_driver": "database",
+    "query": "launch",
+    "search_uncontrolled": [
+        1,
+        3,
+        6
+    ],
+    "posts": [
+        {
+            "id": 1,
+            "title": "Q4 launch plan",
+            "client_id": 1,
+            "author_id": 3
+        },
+        {
+            "id": 2,
+            "title": "Pricing page copy",
+            "client_id": 1,
+            "author_id": 2
+        },
+        {
+            "id": 3,
+            "title": "Launch day checklist",
+            "client_id": 1,
+            "author_id": 4
+        },
+        {
+            "id": 4,
+            "title": "Release notes 2.4",
+            "client_id": 1,
+            "author_id": 3
+        },
+        {
+            "id": 5,
+            "title": "Brand refresh brief",
+            "client_id": 2,
+            "author_id": 5
+        },
+        {
+            "id": 6,
+            "title": "Globex launch recap",
+            "client_id": 2,
+            "author_id": 5
+        }
+    ],
+    "readers": {
+        "admin": {
+            "reader": {
+                "id": 1,
+                "name": "Ada",
+                "client_id": null
+            },
+            "permissions": [
+                "view all posts",
+                "update all posts"
+            ],
+            "levels": {
+                "view": "GlobalPerimeter",
+                "update": "GlobalPerimeter"
+            },
+            "listed": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "editable": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "search": [
+                1,
+                3,
+                6
+            ],
+            "search_total": 3
+        },
+        "manager": {
+            "reader": {
+                "id": 2,
+                "name": "Marc",
+                "client_id": 1
+            },
+            "permissions": [
+                "view client posts",
+                "update client posts"
+            ],
+            "levels": {
+                "view": "ClientPerimeter",
+                "update": "ClientPerimeter"
+            },
+            "listed": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "editable": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "search": [
+                1,
+                3
+            ],
+            "search_total": 2
+        },
+        "author": {
+            "reader": {
+                "id": 3,
+                "name": "Lea",
+                "client_id": 1
+            },
+            "permissions": [
+                "view client posts",
+                "update own posts"
+            ],
+            "levels": {
+                "view": "ClientPerimeter",
+                "update": "OwnPerimeter"
+            },
+            "listed": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "editable": [
+                1,
+                4
+            ],
+            "search": [
+                1,
+                3
+            ],
+            "search_total": 2
+        },
+        "guest": {
+            "reader": null,
+            "permissions": [],
+            "levels": [],
+            "listed": [],
+            "editable": [],
+            "search": [],
+            "search_total": 0
+        }
+    }
+}

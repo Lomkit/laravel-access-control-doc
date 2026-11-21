@@ -1,4 +1,6 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
+import { asSitemapCollection } from '@nuxtjs/sitemap/content'
+import { docsFolder } from './shared/utils/docs'
 
 export default defineContentConfig({
   collections: {
@@ -6,13 +8,15 @@ export default defineContentConfig({
       type: 'page',
       source: 'index.md'
     }),
-    docs: defineCollection({
+    // The pages of `content/<docsFolder>/**`, served at the root.
+    docs: defineCollection(asSitemapCollection({
       type: 'page',
       source: {
-        include: '**',
-        exclude: ['index.md']
+        include: `${docsFolder}/**`,
+        prefix: '/'
       },
       schema: z.object({
+        updatedAt: z.string().optional(),
         links: z.array(z.object({
           label: z.string(),
           icon: z.string(),
@@ -20,6 +24,6 @@ export default defineContentConfig({
           target: z.string().optional()
         })).optional()
       })
-    })
+    }))
   }
 })

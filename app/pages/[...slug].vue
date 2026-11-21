@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
-import { findPageHeadline } from '#ui-pro/utils/content'
+import { findPageHeadline } from '@nuxt/content/utils'
 
 definePageMeta({
   layout: 'docs'
 })
 
 const route = useRoute()
-const { toc, seo, sponsors } = useAppConfig()
+const { toc, sponsors } = useAppConfig()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const { data: page } = await useAsyncData(route.path, () => queryCollection('docs').path(route.path).first())
@@ -21,19 +21,32 @@ const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
   })
 })
 
+const title = page.value.seo?.title || page.value.title
+const description = page.value.seo?.description || page.value.description
+
 useSeoMeta({
-  title: page.value.seo.title,
-  ogTitle: `${page.value.seo.title} - ${seo?.siteName}`,
-  description: page.value.seo.description,
-  ogDescription: page.value.seo.description
+  title,
+  ogTitle: title,
+  description,
+  ogDescription: description
 })
 
-const headline = computed(() => findPageHeadline(navigation?.value, page.value))
+useDocsPageSeo({ path: page.value.path, title, description, updatedAt: page.value.updatedAt })
 
-defineOgImageComponent('Docs', {
-  title: page.value.title,
-  description: page.value.description,
-  headline: headline.value
+const headline = computed(() => findPageHeadline(navigation?.value, page.value?.path))
+
+defineOgImageComponent('DocsSatori', {
+  title,
+  description,
+  headline: headline.value,
+  version: packageInfo.docsVersion
+})
+
+// The stem of a page served at the root does not hold its content folder.
+const sourceStem = computed(() => {
+  const stem = page.value?.stem ?? ''
+
+  return stem.startsWith(`${docsFolder}/`) ? stem : `${docsFolder}/${stem}`
 })
 
 const links = computed(() => {
@@ -42,7 +55,7 @@ const links = computed(() => {
     links.push({
       icon: 'i-lucide-external-link',
       label: 'Edit this page',
-      to: `${toc.bottom.edit}/${page?.value?.stem}.${page?.value?.extension}`,
+      to: `${toc.bottom.edit}/${sourceStem.value}.${page?.value?.extension}`,
       target: '_blank'
     })
   }
@@ -56,9 +69,18 @@ const links = computed(() => {
     <UPageHeader
       :title="page.title"
       :description="page.description"
-      :links="page.links"
       :headline="headline"
-    />
+    >
+      <template #links>
+        <UButton
+          v-for="(link, index) in page.links"
+          :key="index"
+          v-bind="link"
+        />
+
+        <PageHeaderLinks />
+      </template>
+    </UPageHeader>
 
     <UPageBody>
       <ContentRenderer
@@ -105,8 +127,6 @@ const links = computed(() => {
               :title="sponsors.title"
               :links="sponsors.links"
             />
-
-            <SponsorsAd />
           </div>
         </template>
       </UContentToc>

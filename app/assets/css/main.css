@@ -1,9 +1,10 @@
 @import "tailwindcss";
-@import "@nuxt/ui-pro";
+@import "@nuxt/ui";
 
 @source "../../../content/**/*";
 
 @theme static {
+  --container-8xl: 90rem;
   --font-sans: 'Public Sans', sans-serif;
 
   --color-green-50: #EFFDF5;
@@ -18,3 +19,44 @@
   --color-green-900: #0A5331;
   --color-green-950: #052E16;
 }
+
+/* Long inline code (class names, error paths) wraps instead of widening the page on small screens. */
+:not(pre) > code {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+/* Wider layout on large screens: the docs used 80rem and left most of a wide screen empty. */
+:root {
+  --ui-container: 110rem;
+}
+
+/* Landing: teal marks what a reader may edit, next to the primary orange for what they see; the tones colour the faces. */
+:root {
+  --lac-update: #0f766e;
+  --lac-primary-text: #c2410c;
+  --lac-on-update: #ffffff;
+  --lac-no: #b91c1c;
+  --lac-ok: #047857;
+  --lac-acme: #0284c7;
+  --lac-globex: #b45309;
+  --lac-tone-violet: #7c3aed;
+  --lac-tone-sky: #0284c7;
+  --lac-tone-emerald: #059669;
+  --lac-tone-slate: #64748b;
+}
+
+.dark {
+  --lac-update: #2dd4bf;
+  --lac-primary-text: #fdba74;
+  --lac-on-update: #04231f;
+  --lac-no: #f87171;
+  --lac-ok: #34d399;
+  --lac-acme: #38bdf8;
+  --lac-globex: #fbbf24;
+  --lac-tone-violet: #a78bfa;
+  --lac-tone-sky: #38bdf8;
+  --lac-tone-emerald: #34d399;
+  --lac-tone-slate: #94a3b8;
+}
+

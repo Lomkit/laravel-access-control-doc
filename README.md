@@ -1,116 +1,55 @@
-![nuxt-ui-docs-social-card](https://github.com/nuxt-ui-pro/docs/assets/739984/f64e13d9-9ae0-4e03-bf7f-6be4c36cd9ba)
+# Laravel Access Control documentation
 
-# Nuxt UI Pro - Docs template
+Source of [laravel-access-control.lomkit.com](https://laravel-access-control.lomkit.com), the documentation of [Laravel Access Control](https://github.com/Lomkit/laravel-access-control).
 
-[![Nuxt UI Pro](https://img.shields.io/badge/Made%20with-Nuxt%20UI%20Pro-00DC82?logo=nuxt.js&labelColor=020420)](https://ui.nuxt.com/pro)
-[![Nuxt Studio](https://img.shields.io/badge/Open%20in%20Nuxt%20Studio-18181B?&logo=nuxt.js&logoColor=3BB5EC)](https://nuxt.studio/themes/docs)
-
-- [Live demo](https://docs-template.nuxt.dev)
-- [Documentation](https://ui.nuxt.com/getting-started/installation/pro/nuxt)
-- [Clone on Nuxt Studio](https://content.nuxt.com/templates/docs)
-
-[![Deploy to NuxtHub](https://hub.nuxt.com/button.svg)](https://hub.nuxt.com/new?repo=nuxt-ui-pro/docs)
-
-## Quick Start
-
-```bash [Terminal]
-npx nuxi init -t github:nuxt-ui-pro/docs
-```
+Built with [Nuxt](https://nuxt.com), [Nuxt UI](https://ui.nuxt.com) and [Nuxt Content](https://content.nuxt.com). The pages of the documentation live in `content/1.x`, served at the root. The landing page is `app/pages/index.vue`, built from the components of `app/components/landing`; `content/index.md` holds its title, description and summary.
 
 ## Setup
 
-Make sure to install the dependencies:
-
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+## Development
 
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
+## Checks
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+npm run lint
+npm run typecheck
+npm run check:landing
 ```
 
-Locally preview production build:
+## Static build
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+npm run generate
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+The site is generated into `.output/public` and deployed to GitHub Pages on every push to `main`.
 
-## Nuxt Studio integration
+## Pages and redirects
 
-Studio is an intuitive CMS interface to edit your Nuxt Content websites.
+- Each section is a folder of `content/1.x` with a `.navigation.yml` (title and icon). The numbers in the names set the order and are not part of the URLs: `content/1.x/1.getting-started/2.installation.md` is served at `/getting-started/installation`. `llms.txt` lists the sections in the same order.
+- `shared/utils/docs.ts` maps every URL of the 0.x site to its 1.x page in `legacyPages`. The build writes a redirect page for each old URL whose page no longer exists: a 1.x page that takes an old path replaces its redirect, and the map points the other old URLs to their new page.
 
-It take advantage of the Preview API included in Nuxt Content to propose the best editing experience for your content files. Editors can benefit from a user-friendly interface to edit their Markdown, YAML or JSON files.
+## Versions and releases
 
-You can import your project on the platform without any extra setup.
+- The site documents one version, 1.x. A second major would follow [laravel-rest-api-doc](https://github.com/Lomkit/laravel-rest-api-doc): a list of versions in `shared/utils`, one content collection and folder for each, the latest one at the root, and a version switcher.
+- `shared/utils/package-info.ts` holds the facts about the package that `llms.txt` and the structured data of the pages use. Update `release` with each release, and the requirements with `composer.json`.
 
-However to enable the live preview on the platform, you just need to activate studio in the content configuration of your `nuxt.config.ts` file.
+## Markdown, llms.txt and MCP
 
-```ts [nuxt.config.ts]
-export default defineNuxtConfig({
-  content: {
-    preview: {
-      api: 'https://api.nuxt.studio'
-    }
-  }
-})
-```
+The static build publishes `llms.txt`, `llms-full.txt` and a Markdown copy of every page under `/raw/<path>.md`.
 
-Read more on [Nuxt Studio docs](https://content.nuxt.com/studio/setup).
+The deployed site is static and has no `/mcp` endpoint. To give an assistant the docs over MCP, use GitMCP (`https://lomkit.gitmcp.io/laravel-access-control-doc`) or Context7. `context7.json` sets what Context7 indexes.
 
-## Renovate integration
+## Landing data
 
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+The posts, lists, Edit buttons and search results of the landing, in `app/data/landing/eyes.ts`, come from a test run against the package release with Scout's database engine, and its control is the `PostControl` of the package README: the control of step 1, with the `searchKeys()` lines of step 4 at the end of the perimeter chains. `scripts/landing` keeps the output of that run and the two README blocks, and `npm run check:landing` checks the data file against them. After a change of the package, rerun the test, replace these files and update the data file until the check passes.
