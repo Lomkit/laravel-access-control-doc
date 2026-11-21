@@ -52,4 +52,4 @@ The deployed site is static and has no `/mcp` endpoint. To give an assistant the
 
 ## Landing data
 
-The posts, lists, Edit buttons and search results of the landing, in `app/data/landing/eyes.ts`, come from a test run against the package release with Scout's database engine, and its control is the `PostControl` of the package README. `scripts/landing` keeps the output of that run and the README control, and `npm run check:landing` checks the data file against both. After a change of the package, rerun the test, replace both files and update the data file until the check passes.
+The posts, lists, Edit buttons and search results of the landing, in `app/data/landing/eyes.ts`, come from a test run against the package release with Scout's database engine, and its control is the `PostControl` of the package README: the control of step 1, with the `searchKeys()` lines of step 4 at the end of the perimeter chains. `scripts/landing` keeps the output of that run and the two README blocks, and `npm run check:landing` checks the data file against them. After a change of the package, rerun the test, replace these files and update the data file until the check passes.

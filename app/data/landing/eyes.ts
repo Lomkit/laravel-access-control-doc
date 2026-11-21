@@ -1,9 +1,11 @@
 /**
  * Data of the landing. The posts, lists, Edit buttons and search results were
  * produced by a test run against lomkit/laravel-access-control v1.0.0, with
- * Scout's database engine (scripts/landing/landing-search-output.json), and
- * `control` is the PostControl of the package README, from its class line.
- * `npm run check:landing` checks this file against both: edit them together.
+ * Scout's database engine (scripts/landing/landing-search-output.json).
+ * `control` is the PostControl of the package README: its step 1 control, with
+ * the searchKeys() lines of its step 4 at the end of the perimeter chains, so
+ * the search follows on every engine. `npm run check:landing` checks this file
+ * against both; the `say` sentences and the client names are checked by hand.
  */
 export type Ability = 'view' | 'update'
 
@@ -92,13 +94,15 @@ export const landing = {
     '                    ->should(fn (User $user, Post $post) => $post->client_id === $user->client_id)',
     '                    ->query(function (Builder $query, User $user): void {',
     '                        $query->where(\'client_id\', $user->client_id);',
-    '                    }),',
+    '                    })',
+    '                    ->searchKeys(name: \'client\', row: fn (Post $post) => $post->client_id, reader: fn (User $user) => $user->client_id),',
     '                OwnPerimeter::new()',
     '                    ->allowed(fn (User $user, Ability $ability) => $user->can("{$ability} own posts"))',
     '                    ->should(fn (User $user, Post $post) => $post->author_id === $user->id)',
     '                    ->query(function (Builder $query, User $user): void {',
     '                        $query->where(\'author_id\', $user->id);',
-    '                    }),',
+    '                    })',
+    '                    ->searchKeys(name: \'author\', row: fn (Post $post) => $post->author_id, reader: fn (User $user) => $user->id),',
     '            ),',
     '        ];',
     '    }',
@@ -106,8 +110,8 @@ export const landing = {
   ],
   levels: [
     { name: 'GlobalPerimeter', from: 8, to: 10 },
-    { name: 'ClientPerimeter', from: 11, to: 16 },
-    { name: 'OwnPerimeter', from: 17, to: 22 }
+    { name: 'ClientPerimeter', from: 11, to: 17 },
+    { name: 'OwnPerimeter', from: 18, to: 24 }
   ] as LandingLevel[]
 }
 
@@ -136,6 +140,8 @@ export const beforeCode = [
 export const beforeDriftLine = 4
 
 /** The "after": the levels of the control, without their indentation. */
-export const afterCode = landing.control.slice(7, 24).map(line => line.slice(12))
+export const afterCode = landing.control
+  .slice(landing.control.indexOf('            Levels::of('), landing.control.indexOf('            ),') + 1)
+  .map(line => line.slice(12))
 
 export const apiRoute = 'Rest::resource(\'posts\', PostsController::class);'
