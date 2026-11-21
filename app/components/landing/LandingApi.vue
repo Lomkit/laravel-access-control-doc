@@ -51,6 +51,17 @@ const routeLine = [apiRoute]
           </p>
         </li>
       </ul>
+
+      <ULink
+        to="/integrations/laravel-rest-api"
+        class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-(--lac-primary-text) hover:underline"
+      >
+        How the laravel-rest-api extension works
+        <UIcon
+          name="i-lucide-arrow-right"
+          class="size-3.5"
+        />
+      </ULink>
     </UContainer>
   </section>
 </template>
