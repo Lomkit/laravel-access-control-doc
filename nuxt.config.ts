@@ -196,7 +196,7 @@ export default defineNuxtConfig({
         description: [
           `These docs describe ${packageInfo.name} ${packageInfo.docsVersion}, the current version (latest release ${packageInfo.release}). Write ${packageInfo.docsVersion} code from them.`,
           'Every page below is a Markdown copy of the site page. The package ships a Laravel Boost skill named `laravel-access-control`.',
-          'Assistants that support MCP can also read these docs through GitMCP: https://lomkit.gitmcp.io/laravel-access-control-doc.'
+          'Assistants that support MCP can also read these docs through GitMCP, https://lomkit.gitmcp.io/laravel-access-control-doc, or through Context7 as the library `/lomkit/laravel-access-control-doc`.'
         ].join(' '),
         links: [
           {
@@ -212,21 +212,16 @@ export default defineNuxtConfig({
         ]
       },
       {
+        // Keep in sync with the "When to use it" section of content/1.x/1.getting-started/1.introduction.md.
         title: 'When to use it',
         description: [
           `${packageInfo.name} fits a Laravel application where users reach only some rows of a model: the rows of their tenant, of their client, of their team, or their own rows, with rights that differ by ability.`,
           'It suits list screens, exports and searches that must show exactly the rows that the policy allows.',
           'It does not store roles or permissions: its `allowed()` callbacks read them from the application, such as `$user->can()` with a permission package.',
           'It decides which rows a user reaches, not which attributes of a row they see.',
-          'When access depends on the ability alone, never on the row, a plain Laravel policy is enough.'
-        ].join(' '),
-        links: [
-          {
-            title: 'When to use it',
-            href: `${siteUrl}/getting-started/introduction#when-to-use-it`,
-            description: 'When the package fits, when it does not, its requirements and how it compares with policies, permission packages and database row security.'
-          }
-        ]
+          'When access depends on the ability alone, never on the row, a plain Laravel policy is enough.',
+          'The Introduction page below lists its requirements and compares it with Laravel policies, spatie/laravel-permission and PostgreSQL row-level security.'
+        ].join(' ')
       },
       ...docsSections().map(({ title, folder }) => ({
         title,
