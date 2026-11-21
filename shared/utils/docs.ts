@@ -8,7 +8,7 @@ import { packageInfo } from './package-info'
 export const docsFolder = packageInfo.docsVersion
 
 /** First page of the docs, the target of "Get started". */
-export const docsFirstPage = '/getting-started/installation'
+export const docsFirstPage = '/getting-started/introduction'
 
 /**
  * Pages of the 0.x site, which served them at the root, with the 1.x page that
@@ -19,12 +19,12 @@ export const docsFirstPage = '/getting-started/installation'
  */
 export const legacyPages: Record<string, string> = {
   '/getting-started/installation': '/getting-started/installation',
-  '/getting-started/concept': '/getting-started/installation',
-  '/essentials/perimeters': '/getting-started/upgrade-guide',
-  '/essentials/controls': '/getting-started/upgrade-guide',
-  '/essentials/policies': '/getting-started/upgrade-guide',
-  '/essentials/usage': '/getting-started/upgrade-guide',
-  '/digging-deeper/scout': '/getting-started/upgrade-guide'
+  '/getting-started/concept': '/getting-started/introduction',
+  '/essentials/perimeters': '/essentials/perimeters',
+  '/essentials/controls': '/essentials/controls',
+  '/essentials/policies': '/essentials/policies',
+  '/essentials/usage': '/essentials/queries',
+  '/digging-deeper/scout': '/search/overview'
 }
 
 /**

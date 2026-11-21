@@ -2,7 +2,7 @@
 
 Source of [laravel-access-control.lomkit.com](https://laravel-access-control.lomkit.com), the documentation of [Laravel Access Control](https://github.com/Lomkit/laravel-access-control).
 
-Built with [Nuxt](https://nuxt.com), [Nuxt UI](https://ui.nuxt.com) and [Nuxt Content](https://content.nuxt.com). The landing page is `content/index.md`, and the pages of the documentation live in `content/1.x`, served at the root.
+Built with [Nuxt](https://nuxt.com), [Nuxt UI](https://ui.nuxt.com) and [Nuxt Content](https://content.nuxt.com). The pages of the documentation live in `content/1.x`, served at the root. The landing page is `app/pages/index.vue`, built from the components of `app/components/landing`; `content/index.md` holds its title, description and summary.
 
 ## Setup
 
@@ -23,6 +23,7 @@ npm run dev
 ```bash
 npm run lint
 npm run typecheck
+npm run check:landing
 ```
 
 ## Static build
@@ -48,3 +49,7 @@ The site is generated into `.output/public` and deployed to GitHub Pages on ever
 The static build publishes `llms.txt`, `llms-full.txt` and a Markdown copy of every page under `/raw/<path>.md`.
 
 The deployed site is static and has no `/mcp` endpoint. To give an assistant the docs over MCP, use GitMCP (`https://lomkit.gitmcp.io/laravel-access-control-doc`) or Context7. `context7.json` sets what Context7 indexes.
+
+## Landing data
+
+The posts, lists, Edit buttons and search results of the landing, in `app/data/landing/eyes.ts`, come from a test run against the package release with Scout's database engine, and its control is the `PostControl` of the package README: the control of step 1, with the `searchKeys()` lines of step 4 at the end of the perimeter chains. `scripts/landing` keeps the output of that run and the two README blocks, and `npm run check:landing` checks the data file against them. After a change of the package, rerun the test, replace these files and update the data file until the check passes.
