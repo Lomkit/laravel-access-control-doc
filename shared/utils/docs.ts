@@ -24,7 +24,7 @@ export const legacyPages: Record<string, string> = {
   '/essentials/controls': '/essentials/controls',
   '/essentials/policies': '/essentials/policies',
   '/essentials/usage': '/essentials/queries',
-  '/digging-deeper/scout': '/getting-started/upgrade-guide'
+  '/digging-deeper/scout': '/search/overview'
 }
 
 /**
