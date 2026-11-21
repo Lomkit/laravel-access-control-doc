@@ -61,11 +61,13 @@ export function useDocsPageSeo(page: DocsPageFacts) {
             ...(page.updatedAt ? { dateModified: page.updatedAt } : {}),
             'isPartOf': {
               '@type': 'WebSite',
+              '@id': `${siteUrl}/#website`,
               'name': packageInfo.name,
               'url': `${siteUrl}/`
             },
             'about': {
               '@type': 'SoftwareSourceCode',
+              '@id': `${siteUrl}/#software`,
               'name': packageInfo.name,
               'codeRepository': packageInfo.repository,
               'programmingLanguage': 'PHP'

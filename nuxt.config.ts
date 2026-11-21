@@ -200,9 +200,31 @@ export default defineNuxtConfig({
         ].join(' '),
         links: [
           {
+            title: 'Use with AI',
+            href: `${siteUrl}/raw/digging-deeper/use-with-ai.md`,
+            description: 'The Laravel Boost skill, llms.txt, the Markdown copies, GitMCP and Context7.'
+          },
+          {
             title: 'Laravel Boost skill',
             href: `${packageInfo.repository}/blob/1.x/resources/boost/skills/laravel-access-control/SKILL.md`,
             description: 'The feature reference that the package gives to coding assistants through Laravel Boost.'
+          }
+        ]
+      },
+      {
+        title: 'When to use it',
+        description: [
+          `${packageInfo.name} fits a Laravel application where users reach only some rows of a model: the rows of their tenant, of their client, of their team, or their own rows, with rights that differ by ability.`,
+          'It suits list screens, exports and searches that must show exactly the rows that the policy allows.',
+          'It does not store roles or permissions: its `allowed()` callbacks read them from the application, such as `$user->can()` with a permission package.',
+          'It decides which rows a user reaches, not which attributes of a row they see.',
+          'When access depends on the ability alone, never on the row, a plain Laravel policy is enough.'
+        ].join(' '),
+        links: [
+          {
+            title: 'When to use it',
+            href: `${siteUrl}/getting-started/introduction#when-to-use-it`,
+            description: 'When the package fits, when it does not, its requirements and how it compares with policies, permission packages and database row security.'
           }
         ]
       },
