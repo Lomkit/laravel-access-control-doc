@@ -13,17 +13,9 @@ const { header } = useAppConfig()
   >
     <UContentSearchButton
       v-if="header?.search"
-      label="Search..."
-      variant="outline"
+      :collapsed="false"
       class="w-full"
-    >
-      <template #trailing>
-        <div class="flex items-center gap-0.5 ms-auto">
-          <UKbd value="meta" />
-          <UKbd value="k" />
-        </div>
-      </template>
-    </UContentSearchButton>
+    />
 
     <template
       v-if="header?.logo?.dark || header?.logo?.light || header?.title"
@@ -47,7 +39,7 @@ const { header } = useAppConfig()
       #left
     >
       <NuxtLink :to="header?.to || '/'">
-        <LogoPro class="w-auto h-8 shrink-0" />
+        <LogoPro class="w-auto h-6 sm:h-8 shrink-0" />
       </NuxtLink>
     </template>
 

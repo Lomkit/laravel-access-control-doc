@@ -1,0 +1,34 @@
+/**
+ * The documentation pages live in `content/<docsFolder>` and are served at the
+ * root. A second major version would follow laravel-rest-api-doc: a list of
+ * versions, one collection each, and a switcher.
+ */
+export const docsFolder = '1.x'
+
+/** First page of the docs, the target of "Get started". */
+export const docsFirstPage = '/getting-started/installation'
+
+/**
+ * Pages of the 0.x site, which served them at the root, with the 1.x page that
+ * replaces each one. While a page has no 1.x equivalent yet, it points to the
+ * closest one: the installation page for getting started, the upgrade guide
+ * otherwise. When a 1.x page takes the old path itself, its redirect is
+ * dropped by `docsRedirects()`: adding the page is enough.
+ */
+export const legacyPages: Record<string, string> = {
+  '/getting-started/installation': '/getting-started/installation',
+  '/getting-started/concept': '/getting-started/installation',
+  '/essentials/perimeters': '/getting-started/upgrade-guide',
+  '/essentials/controls': '/getting-started/upgrade-guide',
+  '/essentials/policies': '/getting-started/upgrade-guide',
+  '/essentials/usage': '/getting-started/upgrade-guide',
+  '/digging-deeper/scout': '/getting-started/upgrade-guide'
+}
+
+/**
+ * Redirects of every old URL whose page no longer exists, among `paths`, the
+ * page paths of the docs.
+ */
+export function docsRedirects(paths: string[]): Record<string, string> {
+  return Object.fromEntries(Object.entries(legacyPages).filter(([from]) => !paths.includes(from)))
+}

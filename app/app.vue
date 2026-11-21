@@ -1,14 +1,14 @@
 <script setup lang="ts">
 const { seo } = useAppConfig()
 
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
-const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
-  server: false
-})
+const { navigation, files } = await useDocsNavigation()
+
+useSiteSeo()
 
 useHead({
   meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'darkreader-lock', content: 'true' }
   ],
   link: [
     { rel: 'icon', href: '/favicon.ico' }
@@ -23,8 +23,6 @@ useSeoMeta({
   ogSiteName: seo?.siteName,
   twitterCard: 'summary_large_image'
 })
-
-provide('navigation', navigation)
 </script>
 
 <template>

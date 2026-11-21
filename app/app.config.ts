@@ -3,13 +3,18 @@ export default defineAppConfig({
     colors: {
       primary: 'orange',
       neutral: 'slate'
-    }
-  },
-  uiPro: {
+    },
+    prose: {
+      pre: {
+        slots: {
+          filename: 'text-default text-sm/6 min-w-0 truncate'
+        }
+      }
+    },
     footer: {
       slots: {
-        root: 'border-t border-(--ui-border)',
-        left: 'text-sm text-(--ui-text-muted)'
+        root: 'border-t border-default',
+        left: 'text-sm text-muted'
       }
     }
   },
@@ -40,14 +45,14 @@ export default defineAppConfig({
       'icon': 'i-simple-icons-github',
       'to': 'https://github.com/Lomkit/laravel-access-control',
       'target': '_blank',
-      'aria-label': 'Laravel Access Control on Github'
+      'aria-label': 'Laravel Access Control on GitHub'
     }]
   },
   toc: {
     title: 'Table of Contents',
     bottom: {
       title: 'Community',
-      edit: 'https://github.com/lomkit/laravel-access-control-doc/edit/master/content',
+      edit: 'https://github.com/lomkit/laravel-access-control-doc/edit/main/content',
       links: [{
         icon: 'i-lucide-star',
         label: 'Star on GitHub',
